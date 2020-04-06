@@ -1,0 +1,118 @@
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import Root from './src/navigation/Root';
+import NavigationService from './src/navigation/routes/NavigationService';
+import {Provider, connect} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import ReduxThunk from 'redux-thunk';
+import AppReducers from './src/reducers';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
+import {authApi} from './src/api';
+import {saveCities, saveToken} from './src/actions';
+
+axios.defaults.baseURL = 'http://tkramdelivery.com/api';
+
+axios.defaults.timeout = 3000;
+
+axios.interceptors.request.use((request) => {
+  console.log('starting request', request.url);
+  return request;
+});
+
+// const fetchFonts = ()=> {
+//   return FontFaceObserver.loadAsync
+// }
+//const store = createStore(AppReducers, applyMiddleware(ReduxThunk));
+
+export default class App extends Component {
+  state = {
+    getToken: false,
+    initial: 'signIn',
+  };
+
+  constructor(props) {
+    super(props);
+    this.store = createStore(AppReducers, applyMiddleware(ReduxThunk));
+    //SplashScreen.preventAutoHide();
+  }
+
+  saveCitiesToStore = (cities) => {
+    this.store.dispatch(saveCities(cities));
+  };
+
+  saveTokenToStore = (token) => {
+    this.store.dispatch(saveToken(token));
+  };
+
+  componentDidMount() {
+    //SecureStore.deleteItemAsync("user_token");
+    console.log('dadazdazd');
+    authApi.getCeties(this.saveCitiesToStore);
+    AsyncStorage.getItem('user_token').then((res) => {
+      console.log(res);
+
+      if (res === null) {
+        this.setState({
+          initial: 'signIn',
+          getToken: true,
+        });
+      } else {
+        // check the validety oof the token before !!!
+        AsyncStorage.getItem('token_experation').then((result) => {
+          if (result !== null) {
+            let tokenDate = new Date(result);
+            let currentDate = new Date();
+            console.log(tokenDate, currentDate);
+            console.log(tokenDate > currentDate);
+            console.log(tokenDate <= currentDate);
+
+            if (tokenDate > currentDate) {
+              this.saveTokenToStore(res);
+              this.setState({
+                initial: 'main',
+                getToken: true,
+              });
+            } else {
+              this.setState({
+                initial: 'signIn',
+                getToken: true,
+              });
+            }
+          } else {
+            this.setState({
+              initial: 'signIn',
+              getToken: true,
+            });
+          }
+        });
+      }
+      //SplashScreen.hide();
+    });
+  }
+
+  render() {
+    if (!this.state.getToken) {
+      return null;
+    }
+    return (
+      <Provider store={this.store}>
+        <View style={styles.container}>
+          <StatusBar
+            translucent
+            backgroundColor="transparent"
+            barStyle="dark-content"
+          />
+          <Root theme="light" initial={this.state.initial} />
+        </View>
+      </Provider>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
