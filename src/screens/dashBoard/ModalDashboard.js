@@ -75,7 +75,6 @@ class ModalDashboard extends Component {
               />
             </View>
           </View>
-
         </View>
       </Modal>
     );
