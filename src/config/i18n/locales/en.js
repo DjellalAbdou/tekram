@@ -9,9 +9,9 @@ export default {
   },
   accountStatment:{
     title : "ACCOUNT STATEMENT",
-    order_number : "Order number",
-    order_amount : "Order amount",
-    client_name : "Client name",
-    total_amount : "Total amount"
+    order_number : "Order number : ",
+    order_amount : "Order amount : ",
+    client_name : "Client name : ",
+    total_amount : "Total amount : "
   }
 }

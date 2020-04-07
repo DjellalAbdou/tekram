@@ -19,7 +19,7 @@ import {createAppContainer} from 'react-navigation';
 import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
 import DashboardScreen from "../screens/dashBoard/DashboardScrean";
-import AccountStatememnt from '../screens/dashBoard/AccountStatememnt';
+import AccountStatememnt from '../screens/dashBoard/accountStatment/AccountStatememnt';
 const AppNavigatorWrapper = (props) => {
   const AppNavigator = createAppContainer(
     createStackNavigator(
