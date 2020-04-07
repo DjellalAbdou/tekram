@@ -5,7 +5,9 @@ export default {
     inActiveText : "BUSY",
     title : 'DASHBOARD',
     newOrder : "Create New Order",
-    accountStatement : "Account Statement"
+    accountStatement : "Account Statement",
+    inputName : "Client Name",
+    inputPrice : "Price"
   },
   accountStatment:{
     title : "ACCOUNT STATEMENT",
@@ -13,5 +15,6 @@ export default {
     order_amount : "Order amount : ",
     client_name : "Client name : ",
     total_amount : "Total amount : "
-  }
+  },
+
 }

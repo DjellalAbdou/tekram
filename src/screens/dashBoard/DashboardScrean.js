@@ -7,11 +7,17 @@ import Switches from 'react-native-switches';
 import Icon from 'react-native-vector-icons/Feather';
 import Header from '../../components/Header';
 import CButton from '../../components/CButton';
+import ModalDashboard from './ModalDashboard';
+import Modal from 'react-native-modal';
+import AccountItem from './accountStatment/component/AccountItem';
+import lodash from 'lodash';
 
 class DashboardScrean extends Component {
     //state
     state = {
-        available : false
+        available : false,
+      refresh : false,
+      modalVisible : false
     };
 
     //functon
@@ -20,6 +26,12 @@ class DashboardScrean extends Component {
       this.setState({
         available : !val
       })
+    }
+    _onEndReached(){
+
+    }
+    _onRefresh(){
+
     }
 
     render() {
@@ -57,22 +69,40 @@ class DashboardScrean extends Component {
                     <CButton style={$.loginBtn}
                              color="{Colors.$primaryBlue}"
                              title={_('dashboard.newOrder')}
-                             onPress={()=>{console.log("click signup");}}
+                             onPress={()=>{this.setState({
+                               modalVisible : true
+                             })}}
                     />
                   </View>
                   <View style={$.viewTextContainer}>
                     <CButton style={$.loginBtn}
                              color="{Colors.$primaryBlue}"
                              title={_('dashboard.accountStatement')}
-                             onPress={()=>{console.log("click signup");}}
+                             onPress={()=>{this.props.navigation.navigate("accountStatement")}}
                     />
                   </View>
                 </View>
               </View>
+              <ModalDashboard
+                isModalVisible={this.state.modalVisible}
+                onBackdropPress={()=>{this.setState({
+                  modalVisible : false
+                })}}
+                onBackButtonPress={()=>{this.setState({
+                  modalVisible : false
+                })}}
+                _onEndReached={this._onEndReached()}
+                _onRefresh={this._onRefresh()}
+                refresh={this.state.refresh}
+                Parent={this}
+              />
             </SafeAreaView>
+
         );
     }
 }
+
+
 const $ = StyleSheet.create({
   containerMain:{flex : 1},
   viewContainer:{flex : 1,justifyContent : "center",alignItems:"center",backgroundColor : Colors.$white},

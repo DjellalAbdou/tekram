@@ -52,15 +52,15 @@ const AppNavigatorWrapper = (props) => {
         priceList: {
           screen: PriceList,
         },
-          dashboard:{
-            screen : DashboardScreen
-          },
+        dashboard:{
+          screen : DashboardScreen
+        },
         accountStatement:{
           screen : AccountStatememnt
         }
       }, //props.initial
       {
-        initialRouteName: "accountStatement",
+        initialRouteName: "dashboard",
         //props.initial,
         headerMode: 'none',
         mode: 'card',
