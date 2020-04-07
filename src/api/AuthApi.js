@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import authService from '../services/AuthChat-service';
+import chatService from '../services/chat-service';
 
 class AuthApi {
   SignIn({phone, password}, remember_me, saveUserTokenAndDate) {
@@ -21,9 +23,20 @@ class AuthApi {
         if (res.message === 'Phone number not verified') {
           return 'verify';
         } else if (res.message === 'Unauthorized') return 'Unauthorized';
-        saveUserTokenAndDate(res);
-        this.StoreToken(res);
-        return true;
+        const dataUser = {login: phone, password: password};
+        return authService
+          .signIn(dataUser)
+          .then(() => {
+            console.log('siggned in chat succesful hohoooooo');
+            chatService.setUpListeners();
+            saveUserTokenAndDate(res);
+            this.StoreToken(res);
+            return true;
+          })
+          .catch((error) => {
+            console.log(`Error in sign in chat.\n\n${JSON.stringify(error)}`);
+            return false;
+          });
       })
       .catch((err) => {
         console.log('error in sign in');
@@ -39,6 +52,7 @@ class AuthApi {
     parent,
   ) {
     console.log(city);
+    const dataUser = {full_name: name, login: phone, password: password};
     axios
       .post(
         '/auth/signup',
@@ -60,6 +74,15 @@ class AuthApi {
       .then((res) => res.data)
       .then((res) => {
         console.log(res);
+        authService
+          .SignUp(dataUser)
+          .then(() => {
+            chatService.setUpListeners();
+            console.log('signed up succesfulll');
+          })
+          .catch((error) => {
+            console.log(`Error in signup chat.\n\n${JSON.stringify(error)}`);
+          });
         parent.savePhoneFromApi(res.phone_number);
       })
       .catch((err) => {

@@ -18,6 +18,7 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
+import Chat from '../screens/chat';
 
 const AppNavigatorWrapper = (props) => {
   const AppNavigator = createAppContainer(
@@ -51,6 +52,9 @@ const AppNavigatorWrapper = (props) => {
         },
         priceList: {
           screen: PriceList,
+        },
+        chat: {
+          screen: Chat,
         },
       }, //props.initial
       {

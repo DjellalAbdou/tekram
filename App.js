@@ -10,6 +10,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import {authApi} from './src/api';
 import {saveCities, saveToken} from './src/actions';
+import store from './src/store';
+import authService from './src/services/AuthChat-service';
+import chatService from './src/services/chat-service';
 
 axios.defaults.baseURL = 'http://tkramdelivery.com/api';
 
@@ -33,9 +36,14 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.store = createStore(AppReducers, applyMiddleware(ReduxThunk));
+    this.store = store;
     //SplashScreen.preventAutoHide();
   }
+
+  initChatUser = async () => {
+    await authService.init();
+    chatService.setUpListeners();
+  };
 
   saveCitiesToStore = (cities) => {
     this.store.dispatch(saveCities(cities));
@@ -48,6 +56,7 @@ export default class App extends Component {
   componentDidMount() {
     //SecureStore.deleteItemAsync("user_token");
     console.log('dadazdazd');
+    this.initChatUser();
     authApi.getCeties(this.saveCitiesToStore);
     AsyncStorage.getItem('user_token').then((res) => {
       console.log(res);

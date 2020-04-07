@@ -155,7 +155,7 @@ class SignInScreen extends Component {
                   //resetForm();
                   setSubmitting(false);
                   alert('your phone or password are wrong');
-                } else if (res.errors !== null) {
+                } else if (res.errors) {
                   alert('phone or mdp wrong');
                   //resetForm();
                   setSubmitting(false);
@@ -164,13 +164,13 @@ class SignInScreen extends Component {
                   setSubmitting(false);
                   NavigationService.navigate('main');
                 } else {
-                  alert('an error occured!');
+                  alert('an error occured! here lala');
                   //resetForm();
                   setSubmitting(false);
                 }
               })
               .catch((err) => {
-                alert('an error occured!');
+                alert('an error occured! in catch why');
                 setSubmitting(false);
               });
           }}>
