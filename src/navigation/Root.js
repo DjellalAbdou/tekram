@@ -18,7 +18,8 @@ import React from 'react';
 import {createAppContainer} from 'react-navigation';
 import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
-
+import DashboardScreen from "../screens/dashBoard/DashboardScrean";
+import AccountStatememnt from '../screens/dashBoard/AccountStatememnt';
 const AppNavigatorWrapper = (props) => {
   const AppNavigator = createAppContainer(
     createStackNavigator(
@@ -36,7 +37,6 @@ const AppNavigatorWrapper = (props) => {
         driver: {
           screen: DriverScreen,
         },
-
         partners: {
           screen: PartnersScreen,
         },
@@ -52,9 +52,16 @@ const AppNavigatorWrapper = (props) => {
         priceList: {
           screen: PriceList,
         },
+          dashboard:{
+            screen : DashboardScreen
+          },
+        accountStatement:{
+          screen : AccountStatememnt
+        }
       }, //props.initial
       {
-        initialRouteName: props.initial,
+        initialRouteName: "accountStatement",
+        //props.initial,
         headerMode: 'none',
         mode: 'card',
         defaultNavigationOptions: {

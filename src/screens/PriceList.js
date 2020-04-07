@@ -17,7 +17,6 @@ class PriceList extends Component {
           title="price list"
           leftIcon={<Icon name="menu" size={25} color={Colors.$primaryBlue} />}
           drawer
-
           //rightIcon={<Icon name="search" size={22} color={Colors.$primaryBlue} />}
         />
         <View style={styles.flatContainer}>
