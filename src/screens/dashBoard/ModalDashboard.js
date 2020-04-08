@@ -36,11 +36,12 @@ class ModalDashboard extends Component {
   }
   //rendreing
   render() {
-    let {isModalVisible,onBackPress,_onEndReached,_onRefresh,refresh,Parent} = this.props;
+    let {isModalVisible,onBackPress,onBackButtonPress,_onEndReached,_onRefresh,refresh,Parent} = this.props;
     return (
       <Modal
         isVisible={isModalVisible}
         onBackdropPress = {onBackPress}
+        onBackButtonPress={onBackButtonPress}
       >
         <View style={$.containerInput}>
           <View style={$.containerName}>
