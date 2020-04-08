@@ -8,9 +8,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import Header from '../../components/Header';
 import CButton from '../../components/CButton';
 import ModalDashboard from './ModalDashboard';
-import Modal from 'react-native-modal';
-import AccountItem from './accountStatment/component/AccountItem';
-import lodash from 'lodash';
 
 class DashboardScrean extends Component {
     //state
@@ -85,7 +82,7 @@ class DashboardScrean extends Component {
               </View>
               <ModalDashboard
                 isModalVisible={this.state.modalVisible}
-                onBackdropPress={()=>{this.setState({
+                onBackPress={()=>{this.setState({
                   modalVisible : false
                 })}}
                 onBackButtonPress={()=>{this.setState({
