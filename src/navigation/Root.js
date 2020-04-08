@@ -20,6 +20,8 @@ import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
 import Chat from '../screens/chat';
 
+import DashboardScreen from "../screens/dashBoard/DashboardScrean";
+import AccountStatememnt from '../screens/dashBoard/accountStatment/AccountStatememnt';
 const AppNavigatorWrapper = (props) => {
   const AppNavigator = createAppContainer(
     createStackNavigator(
@@ -37,7 +39,6 @@ const AppNavigatorWrapper = (props) => {
         driver: {
           screen: DriverScreen,
         },
-
         partners: {
           screen: PartnersScreen,
         },
@@ -56,9 +57,16 @@ const AppNavigatorWrapper = (props) => {
         chat: {
           screen: Chat,
         },
+        dashboard:{
+          screen : DashboardScreen
+        },
+        accountStatement:{
+          screen : AccountStatememnt
+        }
       }, //props.initial
       {
-        initialRouteName: props.initial,
+        initialRouteName: "dashboard",
+        //props.initial,
         headerMode: 'none',
         mode: 'card',
         defaultNavigationOptions: {

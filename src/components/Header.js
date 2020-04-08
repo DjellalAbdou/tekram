@@ -46,8 +46,7 @@ class Header extends Component {
     return (
       <View style={styles.headerContainer}>
         {search ? (
-          <View
-            style={{
+          <View style={{
               width: '100%',
               paddingHorizontal: 10,
               flexDirection: 'row',
@@ -71,7 +70,7 @@ class Header extends Component {
           </View>
         ) : (
           <>
-            <View style={{width: '30%', paddingLeft: 20}}>
+            <View style={{width: '15%', paddingLeft: 20}}>
               {this.props.isOpened ? null : drawer ? (
                 <TouchableOpacity
                   onPress={() => {
@@ -90,9 +89,8 @@ class Header extends Component {
                 </TouchableOpacity>
               )}
             </View>
-            <View
-              style={{
-                width: '40%',
+            <View style={{
+                width: '70%',
                 justifyContent: 'center',
                 alignItems: 'center',
                 //backgroundColor: 'blue',
@@ -112,7 +110,7 @@ class Header extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                width: '30%',
+                width: '15%',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>

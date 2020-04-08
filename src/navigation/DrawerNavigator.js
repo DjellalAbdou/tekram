@@ -5,6 +5,7 @@ import HomeScreen from "../screens/HomeScreen";
 import MyDrawer from "../components/MyDrawer";
 import PriceList from "../screens/PriceList";
 import FavorisScreen from "../screens/FavorisScreen";
+import DashboardScreen from '../screens/dashBoard/DashboardScrean';
 
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -22,7 +23,8 @@ const DrawerNavigator = createDrawerNavigator(
     },
     favoris: {
       screen: FavorisScreen
-    }
+    },
+
   },
   {
     drawerType: "slide",
