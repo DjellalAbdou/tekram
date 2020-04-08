@@ -49,6 +49,16 @@ class DriverApi {
         console.log(res);
       });
   }
+
+  sendContactUsMessage(obj) {
+    return axios
+      .post('/contactus', obj, {
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+      .then((res) => res.data);
+  }
 }
 
 export default DriverApi;

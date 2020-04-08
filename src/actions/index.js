@@ -1,21 +1,32 @@
-import { CHANGE_DRAWER, SAVE_PHONE, SAVE_CITIES, SAVE_TOKEN } from "./types";
+import {
+  CHANGE_DRAWER,
+  SAVE_PHONE,
+  SAVE_CITIES,
+  SAVE_TOKEN,
+  SAVE_CURRENT_DRAWER,
+} from './types';
 
-export const toggleDrawer = state => ({
+export const toggleDrawer = (state) => ({
   type: CHANGE_DRAWER,
-  payload: state
+  payload: state,
 });
 
-export const savePhone = phone => ({
+export const savePhone = (phone) => ({
   type: SAVE_PHONE,
-  payload: phone
+  payload: phone,
 });
 
-export const saveCities = cities => ({
+export const saveCities = (cities) => ({
   type: SAVE_CITIES,
-  payload: cities
+  payload: cities,
 });
 
-export const saveToken = token => ({
+export const saveToken = (token) => ({
   type: SAVE_TOKEN,
-  payload: token
+  payload: token,
+});
+
+export const saveCurrentDrawer = (current) => ({
+  type: SAVE_CURRENT_DRAWER,
+  payload: current,
 });

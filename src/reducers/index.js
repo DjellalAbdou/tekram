@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import userReducer from './userReducer';
-import {CHANGE_DRAWER} from '../actions/types';
+import {CHANGE_DRAWER, SAVE_CURRENT_DRAWER} from '../actions/types';
 import currentUser from './currentUser';
 import dialogs from './dialogs';
 import messages from './messages';
@@ -8,7 +8,7 @@ import connection from './connection';
 import users from './users';
 import selectedDialog from './selectedDialog';
 
-const INITIAL_STATE = {drawerOpened: false};
+const INITIAL_STATE = {drawerOpened: false, drawercurrent: 'home'};
 
 const changeDrawer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -17,6 +17,12 @@ const changeDrawer = (state = INITIAL_STATE, action) => {
         ...state,
         drawerOpened: action.payload,
       };
+    case SAVE_CURRENT_DRAWER:
+      return {
+        ...state,
+        drawercurrent: action.payload,
+      };
+
     default:
       return state;
   }

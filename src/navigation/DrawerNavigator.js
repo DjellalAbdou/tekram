@@ -1,34 +1,38 @@
-import React from "react";
-import { createDrawerNavigator } from "react-navigation-drawer";
-import { ContactUsScreen, AboutUs } from "../screens";
-import HomeScreen from "../screens/HomeScreen";
-import MyDrawer from "../components/MyDrawer";
-import PriceList from "../screens/PriceList";
-import FavorisScreen from "../screens/FavorisScreen";
+import React from 'react';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import {ContactUsScreen, AboutUs} from '../screens';
+import HomeScreen from '../screens/HomeScreen';
+import MyDrawer from '../components/MyDrawer';
+import PriceList from '../screens/PriceList';
+import FavorisScreen from '../screens/FavorisScreen';
+import ourPartners from '../screens/OurPartnersScreen';
 
 const DrawerNavigator = createDrawerNavigator(
   {
     home: {
-      screen: HomeScreen
+      screen: HomeScreen,
     },
     priceList: {
-      screen: PriceList
+      screen: PriceList,
     },
     contactus: {
-      screen: ContactUsScreen
+      screen: ContactUsScreen,
     },
     aboutus: {
-      screen: AboutUs
+      screen: AboutUs,
     },
     favoris: {
-      screen: FavorisScreen
-    }
+      screen: FavorisScreen,
+    },
+    ourPartners: {
+      screen: ourPartners,
+    },
   },
   {
-    drawerType: "slide",
-    drawerWidth: "60%",
+    drawerType: 'slide',
+    drawerWidth: '60%',
     edgeWidth: 20,
-    overlayColor: "transparent",
+    overlayColor: 'transparent',
     unmountInactiveRoutes: true,
     defaultNavigationOptions: {
       //                                                                                     drawerLockMode: "locked-closed",
@@ -38,8 +42,8 @@ const DrawerNavigator = createDrawerNavigator(
     //   ...TransitionPresets.SlideFromRightIOS,
     //   gestureEnabled: true
     // }
-    contentComponent: props => <MyDrawer {...props} />
-  }
+    contentComponent: (props) => <MyDrawer {...props} />,
+  },
 );
 
 export default DrawerNavigator;

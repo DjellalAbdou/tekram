@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({userReducer}) => {
-  console.log(userReducer);
+  //console.log(userReducer);
   return {
     token: userReducer.token,
   };

@@ -38,7 +38,7 @@ const DriverScreen = (props) => {
     // need to add name or id for the driver
     //driver.id
     return chatService.createPrivateDialog('1243915').then((newDialog) => {
-      NavigationService.navigate('chat', {dialog: newDialog});
+      NavigationService.navigate('chat', {dialog: newDialog, driver: driver});
     });
   };
   const renderScene = SceneMap({

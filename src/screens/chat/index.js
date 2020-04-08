@@ -20,6 +20,8 @@ import Message from './message';
 import Avatar from '../../components/avatar';
 import ImagePicker from 'react-native-image-crop-picker';
 import {DIALOG_TYPE} from '../../helpers/constants';
+import Header from '../../components/Header';
+import Colors from '../../constants/Colors';
 
 export class Chat extends PureComponent {
   constructor(props) {
@@ -32,31 +34,31 @@ export class Chat extends PureComponent {
 
   needToGetMoreMessage = null;
 
-  static navigationOptions = ({navigation}) => {
-    let dialog = navigation.state.params.dialog;
-    let dialogPhoto = '';
-    if (dialog.type === DIALOG_TYPE.PRIVATE) {
-      dialogPhoto = UsersService.getUsersAvatar(dialog.occupants_ids);
-    } else {
-      dialogPhoto = dialog.photo;
-    }
-    return {
-      headerTitle: (
-        <Text numberOfLines={3} style={{fontSize: 22, color: 'black'}}>
-          {navigation.state.params.dialog.name}
-        </Text>
-      ),
-      headerRight: (
-        <TouchableOpacity onPress={() => this.goToDetailsScreen(navigation)}>
-          <Avatar
-            photo={dialogPhoto}
-            name={navigation.state.params.dialog.name}
-            iconSize="small"
-          />
-        </TouchableOpacity>
-      ),
-    };
-  };
+  // static navigationOptions = ({navigation}) => {
+  //   let dialog = navigation.state.params.dialog;
+  //   let dialogPhoto = '';
+  //   if (dialog.type === DIALOG_TYPE.PRIVATE) {
+  //     dialogPhoto = UsersService.getUsersAvatar(dialog.occupants_ids);
+  //   } else {
+  //     dialogPhoto = dialog.photo;
+  //   }
+  //   return {
+  //     headerTitle: (
+  //       <Text numberOfLines={3} style={{fontSize: 22, color: 'black'}}>
+  //         {navigation.state.params.dialog.name}
+  //       </Text>
+  //     ),
+  //     headerRight: (
+  //       <TouchableOpacity onPress={() => this.goToDetailsScreen(navigation)}>
+  //         <Avatar
+  //           photo={dialogPhoto}
+  //           name={navigation.state.params.dialog.name}
+  //           iconSize="small"
+  //         />
+  //       </TouchableOpacity>
+  //     ),
+  //   };
+  // };
 
   static goToDetailsScreen = (props) => {
     const isNeedFetchUsers = props.getParam('isNeedFetchUsers', false);
@@ -72,6 +74,7 @@ export class Chat extends PureComponent {
 
   componentDidMount() {
     const {dialog} = this.props.navigation.state.params;
+    //console.log(dialog);
     ChatService.getMessages(dialog)
       .catch((e) => alert(`Error.\n\n${JSON.stringify(e)}`))
       .then((amountMessages) => {
@@ -129,7 +132,7 @@ export class Chat extends PureComponent {
 
   _renderMessageItem(message) {
     const {user} = this.props.currentUser;
-    console.log(user);
+    //console.log(user);
     const isOtherSender = message.sender_id !== user.id ? true : false;
     return (
       <Message otherSender={isOtherSender} message={message} key={message.id} />
@@ -138,6 +141,8 @@ export class Chat extends PureComponent {
 
   render() {
     const {history} = this.props;
+    const {driver} = this.props.navigation.state.params;
+    console.log(this.props.navigation.state.params);
     const {messageText, activIndicator} = this.state;
     return (
       <KeyboardAvoidingView
@@ -145,6 +150,13 @@ export class Chat extends PureComponent {
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 100}>
         <StatusBar barStyle="dark-content" />
+        <Header
+          title={driver.name}
+          leftIcon={
+            <Icon name="chevron-left" size={25} color={Colors.$primaryBlue} />
+          }
+          //rightIcon={<Icon name="star" size={22} color={Colors.$starOrange} />}
+        />
         {activIndicator && (
           <View style={styles.indicator}>
             <ActivityIndicator size="large" color="#0000ff" />
@@ -252,7 +264,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state, props) => {
-  console.log(state);
+  //console.log(state);
   return {
     history: state.messages[props.navigation.state.params.dialog.id],
     currentUser: state.currentUser,

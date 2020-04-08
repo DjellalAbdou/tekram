@@ -153,6 +153,11 @@ class AuthApi {
     await AsyncStorage.setItem('user_token', token.access_token);
     await AsyncStorage.setItem('token_experation', token.expires_at);
   }
+
+  async Logout() {
+    await AsyncStorage.removeItem('user_token');
+    await AsyncStorage.removeItem('token_experation');
+  }
 }
 
 export default AuthApi;

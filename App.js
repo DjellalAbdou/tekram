@@ -53,10 +53,10 @@ export default class App extends Component {
     this.store.dispatch(saveToken(token));
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     //SecureStore.deleteItemAsync("user_token");
     console.log('dadazdazd');
-    this.initChatUser();
+    await this.initChatUser();
     authApi.getCeties(this.saveCitiesToStore);
     AsyncStorage.getItem('user_token').then((res) => {
       console.log(res);
