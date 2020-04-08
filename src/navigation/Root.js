@@ -20,7 +20,7 @@ import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
 import Chat from '../screens/chat';
 
-import DashboardScreen from "../screens/dashBoard/DashboardScrean";
+import DashboardScreen from '../screens/dashBoard/DashboardScrean';
 import AccountStatememnt from '../screens/dashBoard/accountStatment/AccountStatememnt';
 const AppNavigatorWrapper = (props) => {
   const AppNavigator = createAppContainer(
@@ -57,15 +57,15 @@ const AppNavigatorWrapper = (props) => {
         chat: {
           screen: Chat,
         },
-        dashboard:{
-          screen : DashboardScreen
+        dashboard: {
+          screen: DashboardScreen,
         },
-        accountStatement:{
-          screen : AccountStatememnt
-        }
+        accountStatement: {
+          screen: AccountStatememnt,
+        },
       }, //props.initial
       {
-        initialRouteName: "dashboard",
+        initialRouteName: props.initial,
         //props.initial,
         headerMode: 'none',
         mode: 'card',

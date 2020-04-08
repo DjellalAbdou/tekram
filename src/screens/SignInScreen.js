@@ -40,6 +40,7 @@ class SignInScreen extends Component {
   state = {
     rememberMe: false,
     switchOn: false,
+    isDriver: false,
   };
 
   saveUserTokenAndDate = (token) => {
@@ -162,7 +163,8 @@ class SignInScreen extends Component {
                 } else if (res) {
                   //resetForm();
                   setSubmitting(false);
-                  NavigationService.navigate('main');
+                  if (!this.state.isDriver) NavigationService.navigate('main');
+                  else NavigationService.navigate('dashboard');
                 } else {
                   alert('an error occured! here lala');
                   //resetForm();
@@ -229,6 +231,29 @@ class SignInScreen extends Component {
                   <Text style={styles.fogotText}> Forgot Password? </Text>
                 </TouchableOpacity>
               </View>
+              <View style={[styles.Wrapper, {marginTop: 20}]}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      isDriver: !this.state.isDriver,
+                    });
+                  }}
+                  style={styles.rememberWrapper}>
+                  <IconMat
+                    name={
+                      this.state.isDriver
+                        ? 'checkbox-marked-outline'
+                        : 'checkbox-blank-outline'
+                    }
+                    size={17}
+                    color={Colors.$textInputTextGray}
+                    style={{fontWeight: 'bold'}}
+                  />
+
+                  <Text style={styles.rememberText}>are you a driver ?</Text>
+                </TouchableOpacity>
+              </View>
+
               <View
                 style={{
                   width: '100%',
