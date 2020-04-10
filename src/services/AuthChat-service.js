@@ -57,15 +57,19 @@ class AuthService {
       console.log('didnt find token');
       return 'Auth';
     }
+    return 'Auth';
   }
 
   async signIn(params) {
-    const session = await ConnectyCube.createSession(params);
+    console.log(params);
+    let data = {login: 'anis', password: 'anisanis'};
+    const session = await ConnectyCube.createSession(data);
     const currentUser = new User(session.user);
     session.user.avatar = getImageLinkFromUID(session.user.avatar);
     store.dispatch(setCurrentUser(session));
     const customSession = Object.assign({}, currentUser, {
-      password: params.password,
+      password: data.password,
+      //password: params.password,
     });
     this.setUserSession(customSession);
     this.connect(customSession.id, customSession.password);

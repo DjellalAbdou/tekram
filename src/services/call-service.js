@@ -3,9 +3,38 @@ import Toast from 'react-native-simple-toast';
 import ConnectyCube from 'react-native-connectycube';
 import InCallManager from 'react-native-incall-manager';
 import Sound from 'react-native-sound';
-import {users} from '../config';
+export const users = [
+  {
+    id: 72780,
+    name: 'Alice',
+    login: 'videouser1',
+    password: 'videouser1',
+    color: '#34ad86',
+  },
+  {
+    id: 72781,
+    name: 'Bob',
+    login: 'videouser2',
+    password: 'videouser2',
+    color: '#077988',
+  },
+  {
+    id: 590565,
+    name: 'Ciri',
+    login: 'videouser3',
+    password: 'videouser3',
+    color: '#13aaae',
+  },
+  {
+    id: 590583,
+    name: 'Dexter',
+    login: 'videouser4',
+    password: 'videouser4',
+    color: '#056a96',
+  },
+];
 
-export default class CallService {
+class CallService {
   static MEDIA_OPTIONS = {audio: true, video: {facingMode: 'user'}};
 
   _session = null;
@@ -15,14 +44,14 @@ export default class CallService {
   incomingCall = new Sound(require('../../assets/sounds/calling.mp3'));
   endCall = new Sound(require('../../assets/sounds/end_call.mp3'));
 
-  showToast = text => {
+  showToast = (text) => {
     const commonToast = Platform.OS === 'android' ? ToastAndroid : Toast;
 
     commonToast.showWithGravity(text, Toast.LONG, Toast.TOP);
   };
 
   getUserById = (userId, key) => {
-    const user = users.find(user => user.id == userId);
+    const user = users.find((user) => user.id == userId);
 
     if (typeof key === 'string') {
       return user[key];
@@ -32,25 +61,25 @@ export default class CallService {
   };
 
   setMediaDevices() {
-    return ConnectyCube.videochat.getMediaDevices().then(mediaDevices => {
+    return ConnectyCube.videochat.getMediaDevices().then((mediaDevices) => {
       this.mediaDevices = mediaDevices;
     });
   }
 
-  acceptCall = session => {
+  acceptCall = (session) => {
     this.stopSounds();
     this._session = session;
     this.setMediaDevices();
 
     return this._session
       .getUserMedia(CallService.MEDIA_OPTIONS)
-      .then(stream => {
+      .then((stream) => {
         this._session.accept({});
         return stream;
       });
   };
 
-  startCall = ids => {
+  startCall = (ids) => {
     const options = {};
     const type = ConnectyCube.videochat.CallType.VIDEO; // AUDIO is also possible
 
@@ -60,7 +89,7 @@ export default class CallService {
 
     return this._session
       .getUserMedia(CallService.MEDIA_OPTIONS)
-      .then(stream => {
+      .then((stream) => {
         this._session.call({});
         return stream;
       });
@@ -83,7 +112,7 @@ export default class CallService {
     session.reject(extension);
   };
 
-  setAudioMuteState = mute => {
+  setAudioMuteState = (mute) => {
     if (mute) {
       this._session.mute('audio');
     } else {
@@ -91,11 +120,11 @@ export default class CallService {
     }
   };
 
-  switchCamera = localStream => {
-    localStream.getVideoTracks().forEach(track => track._switchCamera());
+  switchCamera = (localStream) => {
+    localStream.getVideoTracks().forEach((track) => track._switchCamera());
   };
 
-  setSpeakerphoneOn = flag => InCallManager.setSpeakerphoneOn(flag);
+  setSpeakerphoneOn = (flag) => InCallManager.setSpeakerphoneOn(flag);
 
   processOnUserNotAnswerListener(userId) {
     return new Promise((resolve, reject) => {
@@ -197,7 +226,7 @@ export default class CallService {
     });
   };
 
-  playSound = type => {
+  playSound = (type) => {
     switch (type) {
       case 'outgoing':
         this.outgoingCall.setNumberOfLoops(-1);
@@ -225,3 +254,9 @@ export default class CallService {
     }
   };
 }
+
+const callservice = new CallService();
+
+Object.freeze(callservice);
+
+export default callservice;

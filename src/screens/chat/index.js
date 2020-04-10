@@ -22,6 +22,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {DIALOG_TYPE} from '../../helpers/constants';
 import Header from '../../components/Header';
 import Colors from '../../constants/Colors';
+import NavigationService from '../../navigation/routes/NavigationService';
 
 export class Chat extends PureComponent {
   constructor(props) {
@@ -132,7 +133,7 @@ export class Chat extends PureComponent {
 
   _renderMessageItem(message) {
     const {user} = this.props.currentUser;
-    //console.log(user);
+    console.log(user, message);
     const isOtherSender = message.sender_id !== user.id ? true : false;
     return (
       <Message otherSender={isOtherSender} message={message} key={message.id} />
@@ -155,7 +156,12 @@ export class Chat extends PureComponent {
           leftIcon={
             <Icon name="chevron-left" size={25} color={Colors.$primaryBlue} />
           }
-          //rightIcon={<Icon name="star" size={22} color={Colors.$starOrange} />}
+          rightIcon={
+            <Icon name="videocam" size={25} color={Colors.$starOrange} />
+          }
+          onPressRight={() => {
+            NavigationService.navigate('video', {opponentsIds: ['1244324']});
+          }}
         />
         {activIndicator && (
           <View style={styles.indicator}>

@@ -39,7 +39,7 @@ const DriverScreen = (props) => {
   const selecteDriverToTalk = (driver) => {
     // need to add name or id for the driver
     //driver.id
-    return chatService.createPrivateDialog('1243915').then((newDialog) => {
+    return chatService.createPrivateDialog('1244324').then((newDialog) => {
       NavigationService.navigate('chat', {dialog: newDialog, driver: driver});
     });
   };

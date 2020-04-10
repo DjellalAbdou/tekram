@@ -77,6 +77,7 @@ export default class Message extends Component {
   render() {
     const {message, otherSender} = this.props;
     const {isModal} = this.state;
+    console.log(store.getState().users);
     const user = otherSender ? store.getState().users[message.sender_id] : '.';
     return (
       <View>

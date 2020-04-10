@@ -15,6 +15,7 @@ import {createAppContainer} from 'react-navigation';
 import DrawerNavigator from './DrawerNavigator';
 import NavigationService from './routes/NavigationService';
 import Chat from '../screens/chat';
+import Video from '../screens/VideoScreen';
 
 import DashboardScreen from '../screens/dashBoard/DashboardScrean';
 import AccountStatememnt from '../screens/dashBoard/accountStatment/AccountStatememnt';
@@ -52,6 +53,9 @@ const AppNavigatorWrapper = (props) => {
         },
         chat: {
           screen: Chat,
+        },
+        video: {
+          screen: Video,
         },
         // dashboard: {
         //   screen: DashboardScreen,

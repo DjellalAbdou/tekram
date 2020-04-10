@@ -152,6 +152,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+      storeFile file('your_key_name.keystore')
+      storePassword 'abdouabdou'
+      keyAlias 'abdouabdou'
+      keyPassword 'abdouabdou'
+        }
     }
     buildTypes {
         debug {
@@ -195,7 +201,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    
+    implementation "com.android.support:support-v4:+"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
@@ -215,7 +221,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
+implementation 'com.google.firebase:firebase-analytics:17.2.2'
 implementation 'com.android.support:multidex:1.0.3'
 }
 
