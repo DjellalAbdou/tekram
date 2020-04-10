@@ -9,7 +9,7 @@ import AppReducers from './src/reducers';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import {authApi} from './src/api';
-import {saveCities, saveToken} from './src/actions';
+import {saveCities, saveToken, saveIsDriver} from './src/actions';
 import store from './src/store';
 import authService from './src/services/AuthChat-service';
 import chatService from './src/services/chat-service';
@@ -53,10 +53,14 @@ export default class App extends Component {
     this.store.dispatch(saveToken(token));
   };
 
-  componentDidMount() {
+  saveTypeofuserToStore = (type) => {
+    this.store.dispatch(saveIsDriver(type));
+  };
+
+  async componentDidMount() {
     //SecureStore.deleteItemAsync("user_token");
     console.log('dadazdazd');
-    this.initChatUser();
+    await this.initChatUser();
     authApi.getCeties(this.saveCitiesToStore);
     AsyncStorage.getItem('user_token').then((res) => {
       console.log(res);
@@ -68,14 +72,15 @@ export default class App extends Component {
         });
       } else {
         // check the validety oof the token before !!!
-        AsyncStorage.getItem('token_experation').then((result) => {
+        AsyncStorage.getItem('token_experation').then(async (result) => {
           if (result !== null) {
             let tokenDate = new Date(result);
             let currentDate = new Date();
             console.log(tokenDate, currentDate);
             console.log(tokenDate > currentDate);
             console.log(tokenDate <= currentDate);
-
+            let typeOfUser = await AsyncStorage.getItem('type_of_user');
+            this.saveTypeofuserToStore(typeOfUser === 'driver' ? true : false);
             if (tokenDate > currentDate) {
               this.saveTokenToStore(res);
               this.setState({

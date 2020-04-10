@@ -3,12 +3,8 @@ import {
   CardStyleInterpolators,
   TransitionPresets,
 } from 'react-navigation-stack';
-import {
-  DriverScreen,
-  PartnersScreen,
-  ContactUsScreen,
-  AboutUs,
-} from '../screens';
+import {PartnersScreen, ContactUsScreen, AboutUs} from '../screens';
+import DriverScreen from '../screens/DriverScreen';
 import PriceList from '../screens/PriceList';
 import SearchDriverScreen from '../screens/SearchDriverScreen';
 import SignUpScreen from '../screens/SignUpScreen';
@@ -57,9 +53,9 @@ const AppNavigatorWrapper = (props) => {
         chat: {
           screen: Chat,
         },
-        dashboard: {
-          screen: DashboardScreen,
-        },
+        // dashboard: {
+        //   screen: DashboardScreen,
+        // },
         accountStatement: {
           screen: AccountStatememnt,
         },

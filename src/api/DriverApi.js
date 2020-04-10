@@ -37,7 +37,7 @@ class DriverApi {
       });
   }
 
-  getFavoritsDrivers(token) {
+  getFavoritsDrivers(token, parent) {
     axios
       .get('/user/fav-drivers', {
         headers: {
@@ -47,6 +47,47 @@ class DriverApi {
       .then((res) => res.data)
       .then((res) => {
         console.log(res);
+        parent.setState({
+          //drivers: res.fav_drivers,
+          drivers: [],
+        });
+      });
+  }
+
+  sendContactUsMessage(obj) {
+    return axios
+      .post('/contactus', obj, {
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+      .then((res) => res.data);
+  }
+
+  setDriverAsFavorite(token, id, parent) {
+    return axios
+      .get('/user/set-fav/' + id, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          Accept: 'application/json',
+        },
+      })
+      .then((res) => res.data)
+      .then((res) => {
+        console.log('set as favorite succsful');
+      });
+  }
+
+  unsetAsFavoris(token, id, parent) {
+    return axios
+      .get('/user/unset-fav/' + id, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((res) => res.data)
+      .then((res) => {
+        console.log('unset as favorite succsful');
       });
   }
 }

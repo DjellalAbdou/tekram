@@ -153,6 +153,32 @@ class AuthApi {
     await AsyncStorage.setItem('user_token', token.access_token);
     await AsyncStorage.setItem('token_experation', token.expires_at);
   }
+
+  async Logout() {
+    await AsyncStorage.removeItem('user_token');
+    await AsyncStorage.removeItem('token_experation');
+  }
+
+  getUser(token, savecurrentuserinfo) {
+    return axios
+      .get('/user', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      })
+      .then((res) => res.data)
+      .then((res) => {
+        console.log(res);
+        savecurrentuserinfo(res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+        console.log(err);
+        alert('error when getting user');
+      });
+  }
 }
 
 export default AuthApi;

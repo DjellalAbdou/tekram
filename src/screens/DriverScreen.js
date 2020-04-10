@@ -17,6 +17,8 @@ import MotorcycleInfo from '../components/MotorcycleInfo';
 import appConfig from '../constants/AppConfig.json';
 import NavigationService from '../navigation/routes/NavigationService';
 import chatService from '../services/chat-service';
+import {driverApi} from '../api';
+import {connect} from 'react-redux';
 
 const {height, width} = Dimensions.get('window');
 
@@ -38,7 +40,7 @@ const DriverScreen = (props) => {
     // need to add name or id for the driver
     //driver.id
     return chatService.createPrivateDialog('1243915').then((newDialog) => {
-      NavigationService.navigate('chat', {dialog: newDialog});
+      NavigationService.navigate('chat', {dialog: newDialog, driver: driver});
     });
   };
   const renderScene = SceneMap({
@@ -62,6 +64,10 @@ const DriverScreen = (props) => {
     </Text>
   );
 
+  const rightPress = (token, driver) => {
+    driverApi.setDriverAsFavorite(token, driver.id);
+  };
+
   return (
     <View style={{flex: 1, width, backgroundColor: Colors.$white}}>
       <Header
@@ -70,6 +76,7 @@ const DriverScreen = (props) => {
           <Icon name="angle-left" size={25} color={Colors.$primaryBlue} />
         }
         rightIcon={<Icon name="star" size={22} color={Colors.$starOrange} />}
+        onPressRight={() => rightPress(props.token, driver)}
       />
       <View style={styles.imageContainer}>
         <View style={styles.imageWrapper}>
@@ -169,5 +176,20 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DriverScreen;
+const mapStateToProps = ({userReducer, changeDrawer}) => {
+  //console.log(changeDrawer);
+  return {
+    token: userReducer.token,
+    isDriver: changeDrawer.isDriver,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveUserToken: (token) => dispatch(saveToken(token)),
+    saveCurrentUserInfo: (user) => dispatch(saveCurrentUserInfp(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DriverScreen);
 export {DriverScreen};

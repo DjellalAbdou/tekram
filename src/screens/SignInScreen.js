@@ -19,7 +19,7 @@ import * as Yup from 'yup';
 import {authApi} from '../api';
 import NavigationService from '../navigation/routes/NavigationService';
 import {connect} from 'react-redux';
-import {saveToken} from '../actions';
+import {saveToken, saveIsDriver} from '../actions';
 
 const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
@@ -163,8 +163,7 @@ class SignInScreen extends Component {
                 } else if (res) {
                   //resetForm();
                   setSubmitting(false);
-                  if (!this.state.isDriver) NavigationService.navigate('main');
-                  else NavigationService.navigate('dashboard');
+                  NavigationService.navigate('main');
                 } else {
                   alert('an error occured! here lala');
                   //resetForm();
@@ -234,14 +233,15 @@ class SignInScreen extends Component {
               <View style={[styles.Wrapper, {marginTop: 20}]}>
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({
-                      isDriver: !this.state.isDriver,
-                    });
+                    this.props.saveIsDriver(!this.props.isDriver);
+                    // this.setState({
+                    //   isDriver: !this.state.isDriver,
+                    // });
                   }}
                   style={styles.rememberWrapper}>
                   <IconMat
                     name={
-                      this.state.isDriver
+                      this.props.isDriver
                         ? 'checkbox-marked-outline'
                         : 'checkbox-blank-outline'
                     }
@@ -375,18 +375,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({userReducer}) => {
-  console.log(userReducer);
+const mapStateToProps = ({userReducer, changeDrawer}) => {
+  //console.log(userReducer);
   return {
     phone: userReducer.phone,
+    isDriver: changeDrawer.isDriver,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     saveUserToken: (token) => dispatch(saveToken(token)),
+    saveIsDriver: (is) => dispatch(saveIsDriver(is)),
   };
 };
 
 //export { SignInScreen };
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInScreen);

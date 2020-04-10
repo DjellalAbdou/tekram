@@ -6,12 +6,22 @@ import ListDrivers from '../components/ListDrivers';
 import Carousel from '../components/CarouselSlider';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const {height, width} = Dimensions.get('window');
-import {driverApi} from '../api';
+import {driverApi, authApi} from '../api';
 import {connect} from 'react-redux';
 import chatService from '../services/chat-service';
 import pushNotificationService from '../services/push-notification';
+import NavigationService from '../navigation/routes/NavigationService';
+import {saveCurrentUserInfp} from '../actions';
 
 class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    authApi
+      .getUser(this.props.token, this.props.saveCurrentUserInfo)
+      .then(() => {
+        if (props.isDriver) NavigationService.navigate('dashboard');
+      });
+  }
   state = {
     drivers: [],
     activeDrivers: [],
@@ -74,18 +84,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({userReducer}) => {
-  console.log(userReducer);
+const mapStateToProps = ({userReducer, changeDrawer}) => {
+  console.log(changeDrawer);
   return {
     token: userReducer.token,
+    isDriver: changeDrawer.isDriver,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     saveUserToken: (token) => dispatch(saveToken(token)),
+    saveCurrentUserInfo: (user) => dispatch(saveCurrentUserInfp(user)),
   };
 };
 
 //export { HomeScreen };
-export default connect(mapStateToProps, null)(HomeScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

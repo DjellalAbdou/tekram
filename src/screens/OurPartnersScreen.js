@@ -13,21 +13,21 @@ const {height, width} = Dimensions.get('window');
 
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-class FavorisScreen extends Component {
+class OurPartnersScreen extends Component {
   state = {
     text: '',
     drivers: [],
   };
 
   componentDidMount() {
-    driverApi.getFavoritsDrivers(this.props.token, this);
+    driverApi.getFavoritsDrivers(this.props.token);
   }
 
   render() {
     return (
       <View style={{flex: 1, width, backgroundColor: Colors.$white}}>
         <Header
-          title="favorits"
+          title="our partners"
           leftIcon={<Icon name="menu" size={25} color={Colors.$primaryBlue} />}
           //rightIcon={<Icon name="search" size={22} color={Colors.$primaryBlue} />}
           //search
@@ -38,8 +38,8 @@ class FavorisScreen extends Component {
             alwaysBounceVertical
             bounces
             style={{paddingBottom: 60}}
-            data={this.state.drivers}
-            renderItem={({item}) => <FavoriteDriver driver={item} search />}
+            data={arr}
+            renderItem={({item}) => <FavoriteDriver driver={item} partners />}
             keyExtractor={(item) => item.toString()}
           />
         </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({userReducer}) => {
-  console.log(userReducer);
+  //console.log(userReducer);
   return {
     token: userReducer.token,
   };
@@ -70,5 +70,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, null)(FavorisScreen);
+export default connect(mapStateToProps, null)(OurPartnersScreen);
 //export { SearchDriverScreen };

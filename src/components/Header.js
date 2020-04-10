@@ -41,12 +41,14 @@ class Header extends Component {
       search,
       onChangeText,
       value,
+      onPressRight,
     } = this.props;
     //console.log('here is the left', leftIcon);
     return (
       <View style={styles.headerContainer}>
         {search ? (
-          <View style={{
+          <View
+            style={{
               width: '100%',
               paddingHorizontal: 10,
               flexDirection: 'row',
@@ -89,8 +91,9 @@ class Header extends Component {
                 </TouchableOpacity>
               )}
             </View>
-            <View style={{
-                width: '70%',
+            <View
+              style={{
+                width: '60%',
                 justifyContent: 'center',
                 alignItems: 'center',
                 //backgroundColor: 'blue',
@@ -110,7 +113,7 @@ class Header extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                width: '15%',
+                width: '20%',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
@@ -138,7 +141,11 @@ class Header extends Component {
                   </TouchableOpacity>
                 </>
               ) : (
-                <TouchableOpacity style={{paddingLeft: '40%'}}>
+                <TouchableOpacity
+                  onPress={() => {
+                    if (onPressRight) onPressRight();
+                  }}
+                  style={{paddingLeft: '40%'}}>
                   {rightIcon}
                 </TouchableOpacity>
               )}
@@ -151,7 +158,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   return {
     isOpened: state.changeDrawer.drawerOpened,
   };

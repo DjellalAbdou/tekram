@@ -15,7 +15,8 @@ import Colors from '../constants/Colors';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import IconF5 from 'react-native-vector-icons/FontAwesome5';
 import {connect} from 'react-redux';
-import {toggleDrawer} from '../actions';
+import {toggleDrawer, saveCurrentDrawer} from '../actions';
+import {authApi} from '../api';
 
 const {height, width} = Dimensions.get('window');
 
@@ -27,6 +28,9 @@ const DrawerElem = ({
   navigation,
   navigateTo,
   closedrawer,
+  changeCurrentDrawer,
+  current,
+  close,
 }) => {
   let MyIcon = '';
   switch (type) {
@@ -45,13 +49,32 @@ const DrawerElem = ({
   return (
     <TouchableOpacity
       onPress={() => {
+        if (title === 'log out') {
+          authApi.Logout();
+          changeCurrentDrawer('home');
+          close(false);
+        } else {
+          changeCurrentDrawer(title);
+        }
         closedrawer();
+
         navigation.navigate(navigateTo);
       }}>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View
+        style={[
+          {
+            justifyContent: 'center',
+            alignItems: 'center',
+            //backgroundColor: Colors.$white,
+          },
+          current ? {backgroundColor: Colors.$white} : null,
+        ]}>
         <View style={styles.elemWrapper}>
           {MyIcon}
-          <Text style={styles.elemText}>{title}</Text>
+          <Text
+            style={[styles.elemText, current ? styles.elemTextCurrent : null]}>
+            {title}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -94,9 +117,9 @@ class MyDrawer extends Component {
                 style={styles.img}
               />
             </View>
-            <Text style={styles.userText}>john doe</Text>
+            <Text style={styles.userText}>{this.props.userinfo.name}</Text>
             <Text style={[styles.userText, {fontSize: 13}]}>
-              tripoli - dam w farez
+              {this.props.userinfo.city} - {this.props.userinfo.full_address}
             </Text>
           </View>
           <View>
@@ -108,24 +131,33 @@ class MyDrawer extends Component {
               navigation={this.props.navigation}
               navigateTo="home"
               closedrawer={this.props.navigation.closeDrawer}
+              current={this.props.currentDrawer === 'home'}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
             />
-            <DrawerElem
-              title="favoris"
-              icon="star"
-              type="mc"
-              size={22}
-              navigation={this.props.navigation}
-              navigateTo="favoris"
-              closedrawer={this.props.navigation.closeDrawer}
-            />
+            {!this.props.isDriver && (
+              <DrawerElem
+                title="favoris"
+                icon="star"
+                type="mc"
+                size={22}
+                navigation={this.props.navigation}
+                navigateTo="favoris"
+                closedrawer={this.props.navigation.closeDrawer}
+                current={this.props.currentDrawer === 'favoris'}
+                changeCurrentDrawer={this.props.changeDrawerCurrent}
+              />
+            )}
+
             <DrawerElem
               title="our partners"
               icon="user-tie"
               type="f5"
               size={22}
               navigation={this.props.navigation}
-              navigateTo="partners"
+              navigateTo="ourPartners"
               closedrawer={this.props.navigation.closeDrawer}
+              current={this.props.currentDrawer === 'our partners'}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
             />
             <DrawerElem
               title="about us"
@@ -135,6 +167,8 @@ class MyDrawer extends Component {
               navigation={this.props.navigation}
               navigateTo="aboutus"
               closedrawer={this.props.navigation.closeDrawer}
+              current={this.props.currentDrawer === 'about us'}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
             />
             <DrawerElem
               title="contact us"
@@ -144,6 +178,8 @@ class MyDrawer extends Component {
               navigation={this.props.navigation}
               navigateTo="contactus"
               closedrawer={this.props.navigation.closeDrawer}
+              current={this.props.currentDrawer === 'contact us'}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
             />
             <DrawerElem
               title="settings"
@@ -153,6 +189,8 @@ class MyDrawer extends Component {
               navigation={this.props.navigation}
               navigateTo="home"
               closedrawer={this.props.navigation.closeDrawer}
+              current={this.props.currentDrawer === 'settings'}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
             />
             <DrawerElem
               title="log out"
@@ -160,8 +198,11 @@ class MyDrawer extends Component {
               type="mc"
               size={22}
               navigation={this.props.navigation}
-              navigateTo="home"
+              navigateTo="signIn"
               closedrawer={this.props.navigation.closeDrawer}
+              changeCurrentDrawer={this.props.changeDrawerCurrent}
+              current={false}
+              close={this.props.toggleDrawerState}
             />
           </View>
         </ScrollView>
@@ -225,6 +266,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginLeft: 10,
   },
+  elemTextCurrent: {
+    color: Colors.$gray,
+  },
   button: {
     backgroundColor: Colors.$white,
     justifyContent: 'center',
@@ -245,14 +289,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({changeDrawer}) => {
+const mapStateToProps = ({changeDrawer, userReducer}) => {
   return {
     isOpened: changeDrawer.drawerOpened,
+    currentDrawer: changeDrawer.drawercurrent,
+    isDriver: changeDrawer.isDriver,
+    userinfo: userReducer.currentUserInfo,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   toggleDrawerState: (state) => dispatch(toggleDrawer(state)),
+  changeDrawerCurrent: (current) => dispatch(saveCurrentDrawer(current)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyDrawer);
