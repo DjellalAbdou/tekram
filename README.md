@@ -33,35 +33,35 @@ the source folder is composed of 11 sub-folders each containing a specific code,
 
 |             Sign in              |             Sign up              |             code confirmation              |
 | :------------------------------: | :------------------------------: | :----------------------------------------: |
-| ![](./assets/images/signin.jpeg) | ![](./assets/images/signup.jpeg) | ![](./assets/images/codeConfirmation.jpeg) |
+|  <img src="./assets/images/signin.jpeg" height="500px" />| <img src="./assets/images/signup.jpeg" height="500px" />| <img src="./assets/images/codeConfirmation.jpeg" height="500px" />|
 
 * **Home :**
 
 |                                 |                                 |
 | ------------------------------- | ------------------------------- |
-| ![](./assets/images/home1.jpeg) | ![](./assets/images/home2.jpeg) |
+|<img src="./assets/images/home1.jpeg" height="500px" />|<img src="./assets/images/home2.jpeg" height="500px" />|
 
 * **profile :**
 
 |          motorcycle info          |            driver info             |
 | :-------------------------------: | :--------------------------------: |
-| ![](./assets/images/profile.jpeg) | ![](./assets/images/profile2.jpeg) |
+|<img src="./assets/images/profile.jpeg" height="500px" />|<img src="./assets/images/profile2.jpeg" height="500px" />|
 
 * **About Us :** 
 
-![](./assets/images/aboutus.jpeg)
+<img src="./assets/images/aboutus.jpeg" height="500px" />
 
 * **Price List :** 
 
-![](./assets/images/priceList.jpeg)
+<img src="./assets/images/priceList.jpeg" height="500px" />
 
 * **Sponsors :** 
 
-![](./assets/images/sponsor.jpeg)
+<img src="./assets/images/sponsor.jpeg" height="500px" />
 
 * **Contact Us :** 
 
-![](./assets/images/contactus.jpeg)
+<img src="./assets/images/contactus.jpeg" height="500px" />
 
 ## How to run ? 
 
