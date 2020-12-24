@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({userReducer, changeDrawer}) => {
-  console.log(changeDrawer);
+  //console.log(changeDrawer);
   return {
     token: userReducer.token,
     isDriver: changeDrawer.isDriver,

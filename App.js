@@ -19,7 +19,7 @@ axios.defaults.baseURL = 'http://tkramdelivery.com/api';
 axios.defaults.timeout = 3000;
 
 axios.interceptors.request.use((request) => {
-  console.log('starting request', request.url);
+  //console.log('starting request', request.url);
   return request;
 });
 
@@ -59,11 +59,11 @@ export default class App extends Component {
 
   async componentDidMount() {
     //SecureStore.deleteItemAsync("user_token");
-    console.log('dadazdazd');
+    //console.log('dadazdazd');
     await this.initChatUser();
     authApi.getCeties(this.saveCitiesToStore);
     AsyncStorage.getItem('user_token').then((res) => {
-      console.log(res);
+      //console.log(res);
 
       if (res === null) {
         this.setState({
@@ -76,9 +76,9 @@ export default class App extends Component {
           if (result !== null) {
             let tokenDate = new Date(result);
             let currentDate = new Date();
-            console.log(tokenDate, currentDate);
-            console.log(tokenDate > currentDate);
-            console.log(tokenDate <= currentDate);
+            //console.log(tokenDate, currentDate);
+            //console.log(tokenDate > currentDate);
+            //console.log(tokenDate <= currentDate);
             let typeOfUser = await AsyncStorage.getItem('type_of_user');
             this.saveTypeofuserToStore(typeOfUser === 'driver' ? true : false);
             if (tokenDate > currentDate) {
