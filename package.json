@@ -15,7 +15,7 @@
     "@react-native-community/push-notification-ios": "1.0.5",
     "axios": "^0.19.2",
     "formik": "^2.1.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "16.11.0",
     "react-native": "0.62.1",
     "react-native-autocomplete-input": "^4.1.0",
