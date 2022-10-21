@@ -36,7 +36,7 @@
     "react-native-modal-dropdown": "^0.7.0",
     "react-native-pagination": "^1.5.5",
     "react-native-push-notification": "^3.1.9",
-    "react-native-reanimated": "^1.7.1",
+    "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-native-simple-toast": "^1.0.0",
